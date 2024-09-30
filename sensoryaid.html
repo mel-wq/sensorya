@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SensoryAid</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Aquí van tus estilos existentes */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7; /* Color de fondo */
+            color: #333; /* Color del texto general */
+        }
+        
+        /* Estilos para los botones de lectura */
+        .read-aloud-button {
+            background-color: transparent; /* Fondo transparente */
+            border: none;
+            cursor: pointer;
+            font-size: 2em; /* Tamaño del icono */
+            color: #ff6f61; /* Color del icono */
+            position: fixed; /* Posición fija */
+            top: 50%; /* Centrado verticalmente */
+            transform: translateY(-50%); /* Ajuste para centrar */
+            z-index: 1000; /* Asegurarse de que esté encima de otros elementos */
+        }
+
+        .read-aloud-button.left {
+            left: 20px; /* Espacio desde la izquierda */
+        }
+
+        .read-aloud-button.right {
+            right: 20px; /* Espacio desde la derecha */
+        }
+
+        /* Resto de tus estilos */
+        header {
+            background: #8acfd4;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            border-bottom-left-radius: 50px;
+            border-bottom-right-radius: 50px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; 
+        }
+
+        header img {
+            height: 80px;
+        }
+
+        nav {
+            margin: 20px 0;
+        }
+
+        nav a {
+            margin: 0 15px;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background-color: #ff6f61;
+            transition: background-color 0.3s, transform 0.3s; 
+        }
+
+        nav a:hover {
+            background-color: #f44336; 
+            transform: scale(1.1);
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            position: relative; 
+            animation: fadeIn 1s; 
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .hero h1 {
+            margin: 0;
+            color: #4A90E2; 
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
+            animation: slideIn 1s; 
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .hero p {
+            font-size: 1.5em;
+            margin: 10px 0;
+            color: #555; 
+        }
+
+        .cta-button {
+            background: #ff6f61;
+            color: #ffffff;
+            padding: 10px 25px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            display: inline-block;
+            transition: background 0.3s, transform 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: bounce 2s infinite; 
+        }
+
+        .cta-button:hover {
+            background: #e94e77;
+            transform: scale(1.05); 
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+
+        .feature {
+            background: #ffffff;
+            padding: 20px;
+            flex: 1;
+            margin: 0 10px;
+            border-radius: 15px;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            animation: fadeInUp 1s; 
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .feature:before {
+            content: "★";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2em;
+            color: #ff6f61;
+        }
+
+        .feature h2 {
+            color: #4A90E2; 
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #8acfd4;
+            color: white;
+            border-top-left-radius: 50px;
+            border-top-right-radius: 50px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1); 
+        }
+
+        .hero .title-with-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero .title-with-logo img {
+            margin-left: 10px;
+            height: 50px; 
+        }
+
+        .social-links {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .social-links a {
+            margin: 0 10px;
+            color: white; 
+            text-decoration: none; 
+            display: flex;
+            align-items: center; 
+        }
+
+        .social-links i {
+            margin-right: 5px; 
+        }
+
+        .side-decor {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: #e0f7fa; 
+            border-radius: 50%; 
+            opacity: 0.5; 
+            animation: pulse 3s infinite; 
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .left-decor {
+            left: -50px;
+            top: 50%; 
+            transform: translateY(-50%);
+        }
+
+        .right-decor {
+            right: -50px;
+            top: 50%; 
+            transform: translateY(-50%);
+        }
+    </style>
+    <script>
+        // Función para leer en voz alta el contenido de la página
+        function readAloud() {
+            const utterance = new SpeechSynthesisUtterance();
+            utterance.lang = 'es-ES'; // Idioma español
+            
+            // Seleccionar una voz más adecuada
+            const voices = speechSynthesis.getVoices();
+            const spanishVoice = voices.find(voice => voice.lang === 'es-ES');
+            utterance.voice = spanishVoice || voices[0]; // Si no se encuentra la voz, usa la primera disponible
+
+            utterance.text = document.body.innerText; // Leer todo el texto de la página
+            utterance.rate = 0.9; // Ajustar la velocidad (0.1 - 10)
+            speechSynthesis.speak(utterance);
+        }
+    </script>
+</head>
+<body>
+
+<header>
+    <img src="C:/Users/Melca/Downloads/images.png" alt="Logo SensoryAid">
+    <nav>
+        <a href="#">Inicio</a>
+        <a href="#">Categorías</a>
+        <a href="#">Acerca de Nosotros</a>
+        <a href="#">Soporte</a>
+        <a href="#" class="cta-button">Comprar Ahora</a>
+    </nav>
+    <div class="social-links">
+        <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
+        <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+        <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+    </div>
+</header>
+
+<div class="container">
+    <div class="hero">
+        <div class="title-with-logo">
+            <h1>SensoryAid</h1>
+            <img src="C:/Users/Melca/Downloads/WhatsApp Image 2024-09-29 at 11.17.09 PM.jpeg" alt="Logo adicional">
+        </div>
+        <p>Soluciones para un Hogar Accesible</p>
+        <a href="#" class="cta-button">Empieza a usar nuestros productos</a>
+        <div class="side-decor left-decor"></div>
+        <div class="side-decor right-decor"></div>
+    </div>
+
+    <div class="features">
+        <div class="feature">
+            <h2>Ahorra Tiempo</h2>
+            <p>Soluciones innovadoras para ayudarte a gestionar tu hogar de manera efectiva.</p>
+        </div>
+        <div class="feature">
+            <h2>Tan Sencillo de Usar</h2>
+            <p>Productos diseñados para ser fáciles de usar por personas con discapacidad visual.</p>
+        </div>
+        <div class="feature">
+            <h2>Integración en la Nube</h2>
+            <p>Conecta tus dispositivos para una experiencia hogareña más inteligente.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>Gracias por tu interés en SensoryAid. ¡Juntos podemos hacer la diferencia!</p>
+    </footer>
+</div>
+
+<!-- Botones de lectura -->
+<button class="read-aloud-button left" onclick="readAloud()">
+    <i class="fas fa-volume-up"></i> <!-- Icono de altavoz -->
+</button>
+<button class="read-aloud-button right" onclick="readAloud()">
+    <i class="fas fa-volume-up"></i> <!-- Icono de altavoz -->
+</button>
+
+</body>
+</html>
